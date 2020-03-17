@@ -1,8 +1,8 @@
 (max 2MByte ROM and/or 32KByte RAM)
 
-This is the first MBC chip for the Game Boy. Any newer MBC chips are
-working similiar, so that is relative easy to upgrade a program from one
-MBC chip to another - or even to make it compatible to several different
+This is the first MBC chip for the Game Boy. Newer MBC chips work similarily, \
+so it is relative easy to upgrade a program from one
+MBC chip to another - or even to make it compatible with several different
 types of MBCs.
 
 Note that the memory in range 0000-7FFF is used for both reading from
@@ -32,7 +32,7 @@ banks at A000-BFFF).
 
 Before external RAM can be read or written, it must be enabled by
 writing to this address space. It is recommended to disable external RAM
-after accessing it, in order to protect its contents from damage during
+when it is not in use in order to protect its contents from damage during
 power down of the Game Boy. Usually the following values are used:
 
 ```

@@ -66,5 +66,5 @@ rounded up to a multiple of 4 cycles.
 |FD      |\<IY\>            |  -
 |CB3X    |SLL  r/(HL)     |SWAP r/(HL)
 
-Note: The unused (-) opcodes will lock up the Game Boy CPU when used.
+Note: The unused (-) opcodes will lock up the Game Boy CPU when executed.
 

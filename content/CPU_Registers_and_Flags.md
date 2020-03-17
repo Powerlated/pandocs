@@ -30,7 +30,7 @@ flags.
 ### The Zero Flag (Z)
 
 This bit becomes set (1) if the result of an operation has been zero
-(0). Used for conditional jumps.
+(0). Useful for conditional jumps.
 
 ### The Carry Flag (C, or Cy)
 

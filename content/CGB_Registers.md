@@ -8,14 +8,14 @@ a changed bit is noted in the chapter about the Serial/Link port.
 
 When using any CGB registers (including those in the Video/Link
 chapters), you must first unlock CGB features by changing byte 0143h in
-the cartridge header. Typically use a value of 80h for games which
-support both CGB and monochrome gameboys, and C0h for games which work
-on CGBs only. Otherwise, the CGB will operate in monochrome 'Non CGB'
+the cartridge header. Typically a value of 80h is used for games which
+support both CGB and monochrome Game Boy consoles, and C0h for games which work
+on CGBs only. Otherwise, the CGB will operate in monochrome DMG
 compatibility mode.
 
 # Detecting CGB (and GBA) functions
 
-CGB hardware can be detected by examing the CPU accumulator (A-register)
+CGB hardware can be detected by examining the CPU accumulator (A-register)
 directly after startup. A value of 11h indicates CGB (or GBA) hardware,
 if so, CGB functions can be used (if unlocked, see above). When A=11h,
 you may also examine Bit 0 of the CPUs B-Register to separate between
@@ -47,11 +47,11 @@ pseudo code would be:
  ENDIF
 ```
 
-The CGB is operating in Normal Speed Mode when it is turned on. Note
-that using the Double Speed Mode increases the power consumption, it
-would be recommended to use Single Speed whenever possible. However, the
+The CGB operates Normal Speed Mode when it is turned on. Note
+that using Double Speed Mode increases power consumption, so it
+is recommended to use Single Speed whenever possible. Note that the
 display will flicker (white) for a moment during speed switches, so this
-cannot be done permanentely. In Double Speed Mode the following will
+should not be done often. In Double Speed Mode the following will
 operate twice as fast as normal:
 
 ```
@@ -71,7 +71,7 @@ And the following will keep operating as usual:
 
 This register allows to input and output data through the CGBs built-in
 Infrared Port. When reading data, bit 6 and 7 must be set (and obviously
-Bit 0 must be cleared - if you don't want to receive your own gameboys
+Bit 0 must be cleared - if you don't want to receive your own Game Boy's
 IR signal). After sending or receiving data you should reset the
 register to 00h to reduce battery power consumption again.
 
@@ -85,14 +85,14 @@ Note that the receiver will adapt itself to the normal level of IR
 pollution in the air, so if you would send a LED ON signal for a longer
 period, then the receiver would treat that as normal (=OFF) after a
 while. For example, a Philips TV Remote Control sends a series of 32 LED
-ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a permanent
+ON/OFF pulses (length 10us ON, 17.5us OFF each) instead of a continuous
 880us LED ON signal. Even though being generally CGB compatible, the GBA
-does not include an infra-red port.
+does not include an infrared port.
 
 ### FF70 - SVBK - CGB Mode Only - WRAM Bank
 
-In CGB Mode 32 KBytes internal RAM are available. This memory is divided
-into 8 banks of 4 KBytes each. Bank 0 is always available in memory at
+In CGB Mode 32 kilobytes of internal RAM are available. This memory is divided
+into 8 banks of 4 KiB each. Bank 0 is always available in memory at
 C000-CFFF, Bank 1-7 can be selected into the address space at D000-DFFF.
 
 ```

@@ -100,7 +100,7 @@ a text box (at the bottom of the screen), and you want sprites to be
 hidden by the text box.
 
 The interrupt is triggered when transitioning from "No conditions met"
-to "Any condition met", which can cause the interrupt to not fire.
+to "Any condition met", which can cause the interrupt to not fire at times.
 Example : the Mode 0 and LY=LYC interrupts are enabled ; since the
 latter triggers during Mode 2 (right after Mode 0), the interrupt will
 trigger for Mode 0 but fail to for LY=LYC.
@@ -126,8 +126,8 @@ through 153. The values between 144 and 153 indicate the V-Blank period.
 
 ### FF45 - LYC - LY Compare (R/W)
 
-The Game Boy permanently compares the value of the LYC and LY registers.
-When both values are identical, the coincident bit in the STAT register
+The Game Boy continuously compares the value of the LYC and LY registers.
+When both values are identical, the coincidence bit in the STAT register
 becomes set, and (if enabled) a STAT interrupt is requested.
 
 ### FF4A - WY - Window Y Position (R/W), FF4B - WX - Window X Position minus 7 (R/W)
@@ -587,10 +587,10 @@ loaded VRAM bank in bit 0, and all other bits will be set to 1.
 
 # VRAM Sprite Attribute Table (OAM)
 
-Gameboy video controller can display up to 40 sprites either in 8x8 or
-in 8x16 pixels. Because of a limitation of hardware, only ten sprites
-can be displayed per scan line. Sprite patterns have the same format as
-BG tiles, but they are taken from the Sprite Pattern Table located at
+The Game Boy video controller can display up to 40 sprites either  8x8 or
+in 8x16 pixels. Because of a hardware limitation, only ten sprites
+can be displayed per scanline. Sprite patterns have the same format as
+BG tiles, but they are taken from the Sprite Tile Table located at
 $8000-8FFF and have unsigned numbering.
 
 Sprite attributes reside in the Sprite Attribute Table (OAM - Object
@@ -599,7 +599,7 @@ four bytes with the following meanings:
 
 ### Byte0 - Y Position
 
-Specifies the sprites vertical position on the screen (minus 16). An
+Specifies the sprite's vertical position on the screen (minus 16). An
 off-screen value (for example, Y=0 or Y\>=160) hides the sprite.
 
 ### Byte1 - X Position
@@ -665,7 +665,7 @@ lower-priority sprite's OBJ-to-BG Priority.
 The recommended method is to write the data to normal RAM first, and to
 copy that RAM to OAM by using the DMA transfer function, initiated
 through DMA register (FF46). Beside for that, it is also possible to
-write data directly to the OAM area by using normal LD commands, this
+write data directly to the OAM area by using normal LD commands, but that
 works only during the H-Blank and V-Blank periods. The current state of
 the LCD controller can be read out from the STAT register (FF41).
 
@@ -675,7 +675,7 @@ the LCD controller can be read out from the STAT register (FF41).
 When the LCD Controller is drawing the screen it is directly reading
 from Video Memory (VRAM) and from the Sprite Attribute Table (OAM).
 During these periods the Game Boy CPU may not access the VRAM and OAM.
-That means, any attempts to write to VRAM/OAM are ignored (the data
+As a result, attempts to write to VRAM/OAM are ignored (the data
 remains unchanged). And any attempts to read from VRAM/OAM will return
 undefined data (typically a value of FFh).
 
